@@ -28,13 +28,15 @@ import numpy as np
 # -----------------------------------------------
 text = "The quick brown fox jumps over the lazy dog!"
 
+print(text.split())
+print(text.strip("!"))
+
 # Write a list comprehension to tokenize the text and remove punctuation
-tokens = _ # Your code here
+tokens = [word.strip(".,!?;:") for word in text.split()]
 
 # Expected output: ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 print(tokens)
-# -----------------------------------------------
-
+# ---------------------------------------------
 
 
 
@@ -42,12 +44,22 @@ print(tokens)
 #   punctuation, and then converts each token to lowercase. The function should returns unique 
 #   words in alphabetical order.
 
+example_string = "Create a function that takes! a takes String and breaks? it up into tokens and removes any"
+
+
 # Your code here:
 # -----------------------------------------------
 def tokenize(string: str) -> list:
-    pass # Your code
+    tokened_version = [word.strip(".,!?;:") for word in string.split()]
+    tokened_version_2 = [word.lower() for word in tokened_version]
+    uniqe_tokened_version = set(tokened_version_2)
+    sorted_tokens = sorted(uniqe_tokened_version)
+
+    return sorted_tokens
 
 
+
+tokenize(example_string)
 # -----------------------------------------------
 
 
