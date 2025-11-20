@@ -46,10 +46,7 @@ print(tokens)
 
 example_string = "Create a function that takes! a takes String and breaks? it up into tokens and removes any"
 
-
-# Your code here:
-# -----------------------------------------------
-def tokenize(string: str) -> list:
+def test_tokenize(string: str) -> list:
     tokened_version = [word.strip("!@#$%^&*().,+:") for word in string.split()]
     tokened_version_2 = [word.lower() for word in tokened_version]
     uniqe_tokened_version = set(tokened_version_2)
@@ -59,7 +56,16 @@ def tokenize(string: str) -> list:
 
 
 
+# Your code here:
+# -----------------------------------------------
+
+def tokenize(string: str) -> list:
+    cleaned = ''.join(c.lower() if c.isalnum() else ' ' for c in string)
+    return sorted(set(cleaned.split()))
+
+
 tokenize(example_string)
+
 # -----------------------------------------------
 
 
