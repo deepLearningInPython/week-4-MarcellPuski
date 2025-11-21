@@ -36,6 +36,7 @@ tokens = [word.strip("!@#$%^&*().,+") for word in text.split()]
 
 # Expected output: ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 print(tokens)
+
 # ---------------------------------------------
 
 
@@ -44,24 +45,27 @@ print(tokens)
 #   punctuation, and then converts each token to lowercase. The function should returns unique 
 #   words in alphabetical order.
 
-example_string = "Create a func!tion that takes! a takes St%ring and breaks? it up into tokens and removes any"
+example_string = "Create a func!tion that takes! a takes St%ring and breaks? it up into tokens tokens and removes any"
 
-def test_tokenize(string: str) -> list:
-    tokened_version = [word.strip("!@#$%^&*().,+:") for word in string.split()]
-    tokened_version_2 = [word.lower() for word in tokened_version]
-    uniqe_tokened_version = set(tokened_version_2)
-    sorted_tokens = sorted(uniqe_tokened_version)
 
-    return sorted_tokens
-
-print(test_tokenize(example_string))
 
 # Your code here:
 # -----------------------------------------------
 
-def tokenize(string: str) -> list:
+def tokenize_old(string: str) -> list:
     cleaned = ''.join(c.lower() if c.isalnum() else ' ' for c in string)
     return sorted(set(cleaned.split()))
+
+
+def tokenize(string: str) -> list:
+    tokens = string.split()
+    
+    cleaned_tokens = ["".join(c.lower() for c in word if c.isalnum()) for word in tokens]
+    
+    unique_tokens = set(token for token in cleaned_tokens if token)
+    
+    return sorted(unique_tokens)
+
 
 
 # -----------------------------------------------
@@ -96,7 +100,7 @@ print(word_frequencies)
 
 # Modify the comprehension to include only words that appear more than once.
 # -----------------------------------------------
-tokens.append("quick")
+# tokens.append("quick")
 
 word_frequencies_2 = {word: tokens.count(word) for word in tokens if tokens.count(word) > 1}
 print(word_frequencies_2)
@@ -146,10 +150,11 @@ all(text_hist[key] == value for key, value in token_counts(text).items())
 
 # Your code here:
 # -----------------------------------------------
-token_to_id = _ # Your code here
+token_to_id = {token: i for i, token in enumerate(tokens)}
 
 # Expected output: {'dog': 0, 'quick': 1, 'fox': 2, 'the': 3, 'over': 4, 'lazy': 5, 'brown': 6, 'jumps': 7}
 print(token_to_id)
+print(tokens)
 # -----------------------------------------------
 
 
@@ -158,7 +163,9 @@ print(token_to_id)
 #
 # Your code here:
 # -----------------------------------------------
-id_to_token = _ # Your code here
+id_to_token = {i: token for token, i in token_to_id.items()}
+
+print(id_to_token)
 
 # tests: 
 # test 1
