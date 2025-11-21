@@ -109,12 +109,14 @@ print(word_frequencies_2)
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
     tokens = string.split()
-    token_frequencies = {word: tokens.count(word) for word in set(tokens) if tokens.count(word) > k}
+    tokens_2 = [word.lower() for word in tokens]
+    token_frequencies = {word: tokens_2.count(word) for word in set(tokens_2) if tokens_2.count(word) > k}
     return token_frequencies
 
 # test:
-example_text = "the quick brown fox jumps over the lazy dog"
-token_counts(example_text, 1)
+example_text = text = """The quick brown fox jumps over the lazy dog. The fox and the dog play together. The fox chases the dog, but the dog runs quickly. The fox is fast, and the dog escapes."""
+token_counts(example_text, 2)
+
 
 text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
 all(text_hist[key] == value for key, value in token_counts(text).items())
