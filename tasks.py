@@ -44,7 +44,7 @@ print(tokens)
 #   punctuation, and then converts each token to lowercase. The function should returns unique 
 #   words in alphabetical order.
 
-example_string = "Create a function that takes! a takes String and breaks? it up into tokens and removes any"
+example_string = "Create a func!tion that takes! a takes St%ring and breaks? it up into tokens and removes any"
 
 def test_tokenize(string: str) -> list:
     tokened_version = [word.strip("!@#$%^&*().,+:") for word in string.split()]
@@ -54,7 +54,7 @@ def test_tokenize(string: str) -> list:
 
     return sorted_tokens
 
-
+print(test_tokenize(example_string))
 
 # Your code here:
 # -----------------------------------------------
@@ -64,11 +64,9 @@ def tokenize(string: str) -> list:
     return sorted(set(cleaned.split()))
 
 
-tokenize(example_string)
-
 # -----------------------------------------------
 
-
+tokenize(example_string)
 
 # [B] Dictionary Comprehensions: Frequency Count of Tokens
 #     Objective: Practice dictionary comprehensions for token frequency counts.
@@ -83,7 +81,6 @@ tokenize(example_string)
 # create a dictionary where each word is a key and its frequency (count) is the value.
 
 
-
 # Task 3: Using the tokens list from the previous exercise, create a dictionary comprehension 
 #   that counts the frequency of each word.
 
@@ -92,25 +89,33 @@ tokenize(example_string)
 
 # Your code here:
 # -----------------------------------------------
-word_frequencies = _ # Your code here
+word_frequencies = {word: tokens.count(word) for word in tokens}
 
 # Expected output example: {'the': 2, 'quick': 1, ...}
 print(word_frequencies)
 
 # Modify the comprehension to include only words that appear more than once.
 # -----------------------------------------------
+tokens.append("quick")
 
-
+word_frequencies_2 = {word: tokens.count(word) for word in tokens if tokens.count(word) > 1}
+print(word_frequencies_2)
 
 # Task 4: Define a function that takes a string and an integer k, and returns a dictionary with
 #   the token frequencies of only those tokens that occur more than k times in the string.
 
+
 # Your code here:
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
-    pass # Your code
+    tokens = tokenize(string)
+    token_frequencies = {word: tokens.count(word) for word in set(tokens) if tokens.count(word) > k}
+    return token_frequencies
 
 # test:
+example_text = "the quick brown fox jumps over the lazy dog"
+token_counts(example_text, 1)
+
 text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
 all(text_hist[key] == value for key, value in token_counts(text).items())
 # -----------------------------------------------
