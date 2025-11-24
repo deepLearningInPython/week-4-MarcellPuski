@@ -123,11 +123,17 @@ print(word_frequencies_2)
 # Your code here:
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
-    cleaned = ''.join(c.lower() if c.isalnum() else ' ' for c in string)
+    allowed = set("\n\t abcdefghijklmnopqrstuvwxyz0123456789")
+    cleaned = "".join(ch for ch in string.lower() if ch in allowed)
     tokens = cleaned.split()
-    token_frequencies = {word: tokens.count(word) for word in set(tokens) if tokens.count(word) > k}
-    return token_frequencies
 
+    # build counts
+    freq = {}
+    for tok in tokens:
+        freq[tok] = freq.get(tok, 0) + 1
+
+    # filter > k
+    return {tok: count for tok, count in freq.items() if count > k}
 
 # test:
 example_text = """The quick brown fox jumps over the lazy dog. The fox and the dog play together. The fox chases the dog, but the dog runs quickly. The fox is fast, and the dog escapes."""
