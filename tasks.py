@@ -68,7 +68,7 @@ def tokenize_real(string: str) -> list:
 
 
 
-def tokenize(string: str) -> list:
+def tokenize_real_2(string: str) -> list:
     cleaned = []
     for c in string.lower():
         if c.isalnum() or c.isspace(): 
@@ -79,6 +79,18 @@ def tokenize(string: str) -> list:
     tokens = "".join(cleaned).split()
     return tokens
 
+
+def tokenize(string: str) -> list:
+    """
+    Lowercase the input, remove any character that's not:
+      - a lowercase ascii letter a..z
+      - a digit 0..9
+      - space, newline or tab
+    Then split on whitespace and return the token list (order preserved).
+    """
+    allowed = set("\n\t abcdefghijklmnopqrstuvwxyz0123456789")
+    cleaned = "".join(ch for ch in string.lower() if ch in allowed)
+    return cleaned.split()
 
 # -----------------------------------------------
 
