@@ -68,7 +68,7 @@ def tokenize_real(string: str) -> list:
 
 
 
-def tokenize_real_2(string: str) -> list:
+def tokenize(string: str) -> list:
     cleaned = []
     for c in string.lower():
         if c.isalnum() or c.isspace(): 
@@ -78,19 +78,6 @@ def tokenize_real_2(string: str) -> list:
 
     tokens = "".join(cleaned).split()
     return tokens
-
-
-def tokenize(string: str) -> list:
-    """
-    Lowercase the input, remove any character that's not:
-      - a lowercase ascii letter a..z
-      - a digit 0..9
-      - space, newline or tab
-    Then split on whitespace and return the token list (order preserved).
-    """
-    allowed = set("\n\t abcdefghijklmnopqrstuvwxyz0123456789")
-    cleaned = "".join(ch for ch in string.lower() if ch in allowed)
-    return cleaned.split()
 
 # -----------------------------------------------
 
@@ -211,8 +198,18 @@ assert all(id_to_token[token_to_id[key]]==key for key in token_to_id) and all(to
 # Your code here:
 # -----------------------------------------------
 def make_vocabulary_map(documents: list) -> tuple:
-    # Hint: use your tokenize function
-    pass # Your code
+    all_tokens = []
+    for doc in documents:
+        all_tokens.extend(tokenize(doc))
+
+    
+    unique_tokens = sorted(set(all_tokens))
+
+    
+    token2int = {tok: idx for idx, tok in enumerate(unique_tokens)}
+    int2token = {idx: tok for idx, tok in enumerate(unique_tokens)}
+
+    return token2int, int2token
 
 # Test
 t2i, i2t = make_vocabulary_map([text])
@@ -231,8 +228,16 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 # Your code here:
 # -----------------------------------------------
 def tokenize_and_encode(documents: list) -> list:
-    # Hint: use your make_vocabulary_map and tokenize function
-    pass # Your code
+    # Build vocabulary
+    token2int, int2token = make_vocabulary_map(documents)
+
+    encoded = []
+    for doc in documents:
+        tokens = tokenize(doc)
+        encoded.append([token2int[tok] for tok in tokens])
+
+    return encoded, token2int, int2token
+
 
 # Test:
 enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
@@ -258,7 +263,7 @@ enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
 
 # Your code here:
 # -----------------------------------------------
-sigmoid = _ # Your code
+sigmoid = lambda x: 1 / (1 + np.exp(-x))
 
 # Test:
 np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
