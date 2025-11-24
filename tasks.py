@@ -123,17 +123,16 @@ print(word_frequencies_2)
 # Your code here:
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
-    allowed = set("\n\t abcdefghijklmnopqrstuvwxyz0123456789")
-    cleaned = "".join(ch for ch in string.lower() if ch in allowed)
-    tokens = cleaned.split()
+    # use the same tokenize() function used in earlier tasks
+    tokens = tokenize(string)
 
-    # build counts
+    # count frequencies
     freq = {}
     for tok in tokens:
         freq[tok] = freq.get(tok, 0) + 1
 
-    # filter > k
-    return {tok: count for tok, count in freq.items() if count > k}
+    # keep tokens with count >= k   (**this is the fix**)
+    return {tok: count for tok, count in freq.items() if count >= k}
 
 # test:
 example_text = """The quick brown fox jumps over the lazy dog. The fox and the dog play together. The fox chases the dog, but the dog runs quickly. The fox is fast, and the dog escapes."""
