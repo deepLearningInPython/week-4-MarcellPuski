@@ -57,7 +57,7 @@ def tokenize_old(string: str) -> list:
     return sorted(set(cleaned.split()))
 
 
-def tokenize(string: str) -> list:
+def tokenize_real(string: str) -> list:
     tokens = string.split()
     
     cleaned_tokens = ["".join(c.lower() for c in word if c.isalnum()) for word in tokens]
@@ -65,6 +65,16 @@ def tokenize(string: str) -> list:
     unique_tokens = set(token for token in cleaned_tokens if token)
     
     return sorted(unique_tokens)
+
+
+def tokenize(string: str) -> list:
+    tokens = string.split()
+    
+    cleaned_tokens = ["".join(c.lower() for c in word if c.isalnum()) for word in tokens]
+    
+    unique_tokens = set(token for token in cleaned_tokens if token)
+    
+    return unique_tokens
 
 
 
