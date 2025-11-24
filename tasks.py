@@ -67,15 +67,17 @@ def tokenize_real(string: str) -> list:
     return sorted(unique_tokens)
 
 
-def tokenize(string: str) -> list:
-    tokens = string.split()
-    
-    cleaned_tokens = ["".join(c.lower() for c in word if c.isalnum()) for word in tokens]
-    
-    unique_tokens = set(token for token in cleaned_tokens if token)
-    
-    return unique_tokens
 
+def tokenize(string: str) -> list:
+    cleaned = []
+    for c in string.lower():
+        if c.isalnum() or c.isspace(): 
+            cleaned.append(c)
+        else:
+            cleaned.append(" ")   # replace punctuation with space
+
+    tokens = "".join(cleaned).split()
+    return sorted(set(tokens))
 
 
 # -----------------------------------------------
