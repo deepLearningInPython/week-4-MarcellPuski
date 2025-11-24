@@ -77,7 +77,7 @@ def tokenize(string: str) -> list:
             cleaned.append(" ")   # replace punctuation with space
 
     tokens = "".join(cleaned).split()
-    return sorted(set(tokens))
+    return tokens
 
 
 # -----------------------------------------------
